@@ -1,19 +1,26 @@
-class PostsController < ApplicationController
+# app/controllers/posts_controller.rb
 
-    def index
-      @posts = Post.all
-    end
-  
-    def new
-      @post = Post.new
-    end
-  
-    def create
-      @post = Post.new
-      @post["body"] = params["post"]["body"]
-      @post["image"] = params["post"]["image"]
-      @post.save
-      redirect_to "/posts"
-    end
-  
+class PostsController < ApplicationController
+  def index
+    @posts = Post.all
   end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to posts_path
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:body, :image)
+  end
+end
