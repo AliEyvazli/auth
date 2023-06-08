@@ -1,15 +1,19 @@
-<h1>New Post</h1>
+<% if logged_in? %>
+  <h1>New Post</h1>
 
-<%= form_with(model: @post) do |form| %>
-  <p>
-    <%= form.label :body %>
-    <%= form.text_field :body %>
-  </p>
+  <%= form_with(model: @post) do |form| %>
+    <p>
+      <%= form.label :body %>
+      <%= form.text_field :body %>
+    </p>
 
-  <p>
-    <%= form.label :image %>
-    <%= form.text_field :image %>
-  </p>
+    <p>
+      <%= form.label :image %>
+      <%= form.text_field :image %>
+    </p>
 
-  <p><%= form.submit %></p>
+    <p><%= form.submit %></p>
+  <% end %>
+<% else %>
+  <p>You must be logged in to create a new post. <%= link_to "Login", login_path %> or <%= link_to "Sign Up", new_user_path %></p>
 <% end %>
